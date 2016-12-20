@@ -3,7 +3,6 @@
 #include "Laser.h"
 
 #include <conio.h>			// _kbhit() et _getch()
-#include <windows.h> // Sleep();
 #include <time.h>	 // clock();
 
 #define NOMBRE_COLONNES 80
@@ -39,27 +38,34 @@ int main(){
 		compteur++;
 
 		if (clock() >= timerLaser + delaiLaser) {
-			for (int i = 0; i < MAX_LASER; i++) 
+			for (int i = 0; i < MAX_LASER; i++)
 				if (mesLaser[i].isAlive)
-					mesLaser[i].moveLaser();
+					if (mesLaser[i].coord.getPositionY() != 2)
+						mesLaser[i].moveLaser();
+					else
+						mesLaser[i].killLaser();
 
 			// gestion des touches du clavier
 			if (_kbhit() != 0) {
 				touche = _getch();
-				direction = directionTouche(touche);
 
-
+				// si la touche espace est pesée
 				if (touche == ' ') {
 					int i = 0;
-					while (i < MAX_LASER && mesLaser[i].isAlive) {
+
+					//	recherche d'une instance de laser non utilisée
+					while (i < MAX_LASER && mesLaser[i].isAlive) 
 						i++;
-					}
-					if (i < MAX_LASER) {
+					// creer un laser si le maximum n'est pas atteint
+					if (i < MAX_LASER) 
 						mesLaser[i].startLaser(monVaisseau.coord.getPositionX());
-					}
 				}
-				else if (direction != -1)
-					monVaisseau.modifierPosition(direction);
+				else {
+					direction = directionTouche(touche);
+					
+					if (direction != -1)
+						monVaisseau.modifierPosition(direction);
+				}
 			}
 			timerLaser = clock();
 		}
@@ -77,20 +83,19 @@ void afficherTerrain(int nbColonnes, int nbLignes) {
 	UIKit::cadre(nbColonnes + 1, 1, nbColonnes + 25, nbLignes, FOREGROUND_GREEN);
 
 	UIKit::curseurVisible(false);
-
 }
 
 int directionTouche(int touche) {
 	char direction;
 
 	switch (touche) {
-	case 'd': direction = 'l'; // 100 = 'd' (droite)
+	case 'd': direction = 'l'; 
 		break;
-	case 68: direction = 'l'; //   68 = 'D' (droite)
+	case 'D': direction = 'l'; 
 		break;
-	case 97: direction = 'k'; //   97 = 'a' (gauche)
+	case 'a': direction = 'k'; 
 		break;
-	case 65: direction = 'k'; //   65 = 'A' (gauche)
+	case 'A': direction = 'k'; 
 		break;
 	default: direction = -1;	
 	}
