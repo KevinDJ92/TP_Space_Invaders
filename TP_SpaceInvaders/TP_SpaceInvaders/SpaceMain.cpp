@@ -28,7 +28,6 @@ int main(){
 	int compteur = 0;
 	int timerLaser = clock();
 	int delaiLaser = 70;
-	int var;
 
 	char direction;
 	char touche;
