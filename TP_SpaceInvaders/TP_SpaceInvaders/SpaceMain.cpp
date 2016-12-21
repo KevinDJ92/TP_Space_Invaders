@@ -15,17 +15,18 @@
 void afficherTerrain(int nbColonnes, int nbLignes);
 int directionTouche(int touche);
 void titreDeroulant();
+void bougerEnnemi(Ennemi race[], int nbAlien, bool &gauche);
 
 // declaration des constants
 const int nbColonnes = NOMBRE_COLONNES, nbLignes = NOMBRE_LIGNES;
 
 #define MAX_LASER 15
-#define MAX_ENNEMIS	15
- 
+#define NB_VENUSIEN 5
+#define NB_SATURIEN 5
 
 int main() {
 	// titre Space Invaders qui descend progressivement 
-	//titreDeroulant();
+	titreDeroulant();
 
 	afficherTerrain(nbColonnes, nbLignes);
 
@@ -34,52 +35,59 @@ int main() {
 
 	Laser mesLaser[MAX_LASER];
 
-	//Martien martien(31, 2);
-	//martien.jiggleMartien();
-
-	//martien.coord.setPositionY(5);
-
-	Ennemi ennemi[MAX_ENNEMIS];
-	
-	// mettre les extraterrestres a leur position de depart
-	
 	// Ennemi
 	int timerEnnemi = clock();
-	int delaiEnnemi = 4000;
-	
-	//int positionX = 15;
-
-	//for (int i = 0; i < 10; i++) {
-	//	martien.coord.setPositionX(positionX);
-	//	martien.putExtraTerrestre();
-	//	positionX += 3;
-	//}
-
-	int compteur = 0;
+	int delaiEnnemi = 500;
 
 	// Laser
 	int timerLaser = clock();
 	int delaiLaser = 70;
-	
 
 	char direction;
 	char touche;
+	int compteur = 0;
 
-	for (int i = 0; i < MAX_ENNEMIS; i++) {
-		ennemi[i].coord.setPositionY(10);
-		ennemi[i].coord.setPositionX(15 + (i * 3));
-		ennemi[i].setEnnemi('@', 3);
+	Ennemi venusien[NB_VENUSIEN];
+	Ennemi saturien[NB_SATURIEN];
+
+	// mettre les extraterrestres a leur position de depart
+	UIKit::color(FOREGROUND_RED + FOREGROUND_GREEN);
+	for (int i = 0; i < NB_VENUSIEN; i++) {
+		venusien[i].setPositionAlien(10, '@', i);
 	}
+	//UIKit::color(FOREGROUND_BLUE + FOREGROUND_GREEN);
+	for (int i = 0; i < NB_VENUSIEN; i++) {
+		saturien[i].setPositionAlien(12, '#', i);
+	}
+	bool gauche = false;
 
 	while (1) {
 		if (clock() >= timerEnnemi + delaiEnnemi) {
-			for (int i = 0; i < 10; i++) {
-				for (int j = 0; j < MAX_ENNEMIS; j++) {
-					ennemi[j].jiggleMartien(false);
-				}
-			}
+			bougerEnnemi(venusien, NB_VENUSIEN, gauche);
+			bougerEnnemi(saturien, NB_SATURIEN, gauche);
 			timerEnnemi = clock();
 		}
+			/*
+		if (venusien[0].coord.getPositionX() == 20) {
+			gauche = true;
+			for (int i = 0; i < MAX_ENNEMIS; i++) {
+				venusien[i].removeExtraTerrestre();
+				venusien[i].coord.setPositionY(venusien[i].coord.getPositionY() + 1);
+			}
+		}
+		else if (venusien[0].coord.getPositionX() == 10) {
+			gauche = false;
+			for (int i = 0; i < MAX_ENNEMIS; i++) {
+				venusien[i].removeExtraTerrestre();
+				venusien[i].coord.setPositionY(venusien[i].coord.getPositionY() + 1);
+			}
+		}
+
+		for (int j = 0; j < MAX_ENNEMIS; j++) {
+			venusien[j].jiggleMartien(gauche);
+		}
+		timerEnnemi = clock();
+	}*/
 
 		if (clock() >= timerLaser + delaiLaser) {
 			// on affiche un compteur en haut à gauche de l'écran
@@ -134,7 +142,7 @@ int main() {
 
 void titreDeroulant() {
 	int positionMenuY = 3;
-	int delaiMenu = 300;
+	int delaiMenu = 150;
 	int timerMenu = clock();
 	bool jouerPartie = false;
 
@@ -143,12 +151,9 @@ void titreDeroulant() {
 			// titre SPACE INVADERS
 			system("cls");
 			UIKit::gotoXY(0, positionMenuY);
-			cout << "  _________                           .___                         .___                       " << endl;
-			cout << "	/ _____ / __________    ____  ____ | | _______  _______     __ | _ / ___________  ______   " << endl;
-			cout << "\_____  \\____ \__  \ _ / ___\ / __ \ | | / \  \ / / \__  \ / __ | / __ \_  __ \ / ___ /      " << endl;
-			cout << "/ \ | _> > __ \\  \__\  ___ / | | | \ / / __ \_ / / _ / \  ___ / | | \ / \___ \			   " << endl;
-			cout << "/ _______ / __(____ / \___  >___  > | ___ | ___ | / \_ / (____ / \____ | \___  >__ | / ____  >" << endl;
-			cout << "\ / | __ | \ / \ / \ / \ / \ / \ / \ / \ " << endl;
+			cout << " _______  _____  _______ _______ _______      _____ __   _ _    _ _______ ______  _______  ______ "<< endl;
+			cout << "	| ______ | _____] | _____ | | | ______ | | \ | \ / | _____ | | \ | ______ | _____ / | ______   " << endl;
+			cout << "	______ | | | | | _____ | ______      __ | __ | \_ | \ / | | | _____ / | ______ | \_ ______ |   " << endl;
 
 			positionMenuY += 1;
 
@@ -202,4 +207,24 @@ int directionTouche(int touche) {
 	}
 
 	return direction;
+}
+void bougerEnnemi(Ennemi race[], int nbAlien, bool &gauche) {
+		if (race[0].coord.getPositionX() == 40) {
+			gauche = true;
+			for (int i = 0; i < nbAlien; i++) {
+				race[i].removeExtraTerrestre();
+				race[i].coord.setPositionY(race[i].coord.getPositionY() + 1);
+			}
+		}
+		else if (race[0].coord.getPositionX() == 30) {
+			gauche = false;
+			for (int i = 0; i < nbAlien; i++) {
+				race[i].removeExtraTerrestre();
+				race[i].coord.setPositionY(race[i].coord.getPositionY() + 1);
+			}
+		}
+
+		for (int j = 0; j < nbAlien; j++) {
+			race[j].jiggleMartien(gauche);
+		}
 }

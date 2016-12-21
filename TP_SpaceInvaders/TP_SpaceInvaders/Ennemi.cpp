@@ -26,4 +26,11 @@ void Ennemi::setEnnemi(int type, int valeur)
 	this->valeurExtraTerrestre = valeur;
 	putExtraTerrestre();
 }
+void Ennemi::setPositionAlien(int positionY, int symbole, int incrementation)
+{
+	coord.setPositionY(positionY);
+	coord.setPositionX(31 + (incrementation) * 3);
+	setEnnemi(symbole, 3);
+
+}
 
