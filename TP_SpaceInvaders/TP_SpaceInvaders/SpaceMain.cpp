@@ -4,6 +4,7 @@
 #include "Martien.h"
 #include "Ennemi.h"
 
+#include <iostream>
 #include <conio.h>			// _kbhit() et _getch()
 #include <time.h>	 // clock();
 
