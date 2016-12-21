@@ -25,7 +25,7 @@ const int nbColonnes = NOMBRE_COLONNES, nbLignes = NOMBRE_LIGNES;
 
 int main() {
 	// titre Space Invaders qui descend progressivement 
-	//titreDeroulant();
+	titreDeroulant();
 
 	afficherTerrain(nbColonnes, nbLignes);
 
@@ -141,7 +141,7 @@ int main() {
 
 void titreDeroulant() {
 	int positionMenuY = 3;
-	int delaiMenu = 300;
+	int delaiMenu = 150;
 	int timerMenu = clock();
 	bool jouerPartie = false;
 
@@ -150,12 +150,9 @@ void titreDeroulant() {
 			// titre SPACE INVADERS
 			system("cls");
 			UIKit::gotoXY(0, positionMenuY);
-			cout << "  _________                           .___                         .___                       " << endl;
-			cout << "	/ _____ / __________    ____  ____ | | _______  _______     __ | _ / ___________  ______   " << endl;
-			cout << "\_____  \\____ \__  \ _ / ___\ / __ \ | | / \  \ / / \__  \ / __ | / __ \_  __ \ / ___ /      " << endl;
-			cout << "/ \ | _> > __ \\  \__\  ___ / | | | \ / / __ \_ / / _ / \  ___ / | | \ / \___ \			   " << endl;
-			cout << "/ _______ / __(____ / \___  >___  > | ___ | ___ | / \_ / (____ / \____ | \___  >__ | / ____  >" << endl;
-			cout << "\ / | __ | \ / \ / \ / \ / \ / \ / \ / \ " << endl;
+			cout << " _______  _____  _______ _______ _______      _____ __   _ _    _ _______ ______  _______  ______ "<< endl;
+			cout << "	| ______ | _____] | _____ | | | ______ | | \ | \ / | _____ | | \ | ______ | _____ / | ______   " << endl;
+			cout << "	______ | | | | | _____ | ______      __ | __ | \_ | \ / | | | _____ / | ______ | \_ ______ |   " << endl;
 
 			positionMenuY += 1;
 
