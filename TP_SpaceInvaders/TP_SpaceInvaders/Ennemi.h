@@ -1,13 +1,9 @@
 #pragma once
 #include "Martien.h"
-#include "ExtraTerrestre.h"
 
-class Ennemi: public Martien {
-private:
-	Martien::Martien;
-	int nbEnnemi;
-
-
+class Ennemi : public ExtraTerrestre {
 public:
 	Ennemi();
+	void jiggleMartien(bool jiggle);
+	void setEnnemi(int type, int valeur);
 };

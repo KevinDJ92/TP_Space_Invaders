@@ -36,6 +36,12 @@
     <ClCompile Include="Vaisseau.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="nouveauVaisseau.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Ennemi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -57,6 +63,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vaisseau.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nouveauVaisseau.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Ennemi.h">
