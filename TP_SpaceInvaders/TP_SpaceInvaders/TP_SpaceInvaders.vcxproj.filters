@@ -36,6 +36,9 @@
     <ClCompile Include="Vaisseau.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ennemi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UIKit.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vaisseau.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ennemi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

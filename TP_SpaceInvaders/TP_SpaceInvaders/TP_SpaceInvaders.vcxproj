@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Coord.cpp" />
+    <ClCompile Include="Ennemi.cpp" />
     <ClCompile Include="ExtraTerrestre.cpp" />
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="Martien.cpp" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coord.h" />
+    <ClInclude Include="Ennemi.h" />
     <ClInclude Include="ExtraTerrestre.h" />
     <ClInclude Include="Laser.h" />
     <ClInclude Include="Martien.h" />

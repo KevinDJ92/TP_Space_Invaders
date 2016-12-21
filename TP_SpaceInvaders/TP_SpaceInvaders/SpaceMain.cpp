@@ -1,10 +1,13 @@
 #include "UIKit.h"
 #include "Vaisseau.h"
 #include "Laser.h"
+#include "ExtraTerrestre.h"
+#include "Martien.h"
+#include "Ennemi.h"
 
-#include <conio.h>			// _kbhit() et _getch()
+#include <conio.h>	// _kbhit() et _getch()
 #include <windows.h> // Sleep();
-#include <time.h>	 // clock();
+#include <time.h>	// clock();
 
 #define NOMBRE_COLONNES 80
 #define NOMBRE_LIGNES 42
@@ -18,6 +21,7 @@ int directionTouche(int touche);
 const int nbColonnes = NOMBRE_COLONNES, nbLignes = NOMBRE_LIGNES;
 
 #define MAX_LASER 15
+#define MAX_ENNEMIS 15
 
 int main(){
 	afficherTerrain(nbColonnes, nbLignes);
@@ -29,14 +33,36 @@ int main(){
 	int timerLaser = clock();
 	int delaiLaser = 70;
 
+	int timerMartien = clock();
+	int delaiMartien = 1700;
+	Ennemi mesEnnemis[MAX_ENNEMIS];
+
 	char direction;
 	char touche;
+
+	Martien Martien1 ('%', 10);
+	Martien1.coord.setPositionX(15);
+	Martien1.coord.setPositionY(15);
+	Martien1.putExtraTerrestre();
+
+	
+	ExtraTerrestre ET1('@', 15);
+	ET1.coord.setPositionX(20);
+	ET1.coord.setPositionY(20);
+	ET1.putExtraTerrestre();
 
 	while (1) {
 		// on affiche un compteur en haut à gauche de l'écran
 		UIKit::gotoXY(0, 0);
 		cout << compteur;
 		compteur++;
+
+		if (clock() >= timerMartien + delaiMartien) {
+			Martien1.removeExtraTerrestre();
+			Martien1.coord.setPositionX(Martien1.coord.getPositionX() +1);
+			Martien1.putExtraTerrestre();
+			timerMartien = clock();
+		}
 
 		if (clock() >= timerLaser + delaiLaser) {
 			for (int i = 0; i < MAX_LASER; i++) 
@@ -47,7 +73,6 @@ int main(){
 			if (_kbhit() != 0) {
 				touche = _getch();
 				direction = directionTouche(touche);
-
 
 				if (touche == ' ') {
 					int i = 0;
@@ -63,6 +88,7 @@ int main(){
 			}
 			timerLaser = clock();
 		}
+
 	}
 	return 0;
 }
@@ -86,14 +112,15 @@ int directionTouche(int touche) {
 	switch (touche) {
 	case 'd': direction = 'l'; // 100 = 'd' (droite)
 		break;
-	case 68: direction = 'l'; //   68 = 'D' (droite)
+	case 'D': direction = 'l'; //   68 = 'D' (droite)
 		break;
-	case 97: direction = 'k'; //   97 = 'a' (gauche)
+	case 'a': direction = 'k'; //   97 = 'a' (gauche)
 		break;
-	case 65: direction = 'k'; //   65 = 'A' (gauche)
+	case 'A': direction = 'k'; //   65 = 'A' (gauche)
 		break;
-	default: direction = -1;	
+	default: direction = -1;
 	}
 
 	return direction;
 }
+

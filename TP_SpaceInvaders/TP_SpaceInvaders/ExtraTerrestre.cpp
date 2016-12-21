@@ -29,7 +29,7 @@ void ExtraTerrestre::resetNombreExtraTerrestre()
 void ExtraTerrestre::removeExtraTerrestre() const
 {
 	coord.gotoXY(coord.getPositionX(),coord.getPositionY());
-	cout << " ";	
+	cout << " ";
 }
 
 void ExtraTerrestre::putExtraTerrestre() const
