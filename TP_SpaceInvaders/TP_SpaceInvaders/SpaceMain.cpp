@@ -20,7 +20,7 @@ const int nbColonnes = NOMBRE_COLONNES, nbLignes = NOMBRE_LIGNES;
 
 #define MAX_LASER 15
 #define MAX_ENNEMIS	15
- 
+
 
 int main() {
 	// titre Space Invaders qui descend progressivement 
@@ -39,13 +39,13 @@ int main() {
 	//martien.coord.setPositionY(5);
 
 	Ennemi ennemi[MAX_ENNEMIS];
-	
+
 	// mettre les extraterrestres a leur position de depart
-	
+
 	// Ennemi
 	int timerEnnemi = clock();
-	int delaiEnnemi = 4000;
-	
+	int delaiEnnemi = 800;
+
 	//int positionX = 15;
 
 	//for (int i = 0; i < 10; i++) {
@@ -59,7 +59,7 @@ int main() {
 	// Laser
 	int timerLaser = clock();
 	int delaiLaser = 70;
-	
+
 
 	char direction;
 	char touche;
@@ -69,16 +69,33 @@ int main() {
 		ennemi[i].coord.setPositionX(15 + (i * 3));
 		ennemi[i].setEnnemi('@', 3);
 	}
+	/*for (int i = 0; i < 10; i++) {*/
+
+	bool gauche = false;
 
 	while (1) {
-		if (clock() >= timerEnnemi + delaiEnnemi) {
-			for (int i = 0; i < 10; i++) {
-				for (int j = 0; j < MAX_ENNEMIS; j++) {
-					ennemi[j].jiggleMartien(false);
+			if (clock() >= timerEnnemi + delaiEnnemi) {
+				if (ennemi[0].coord.getPositionX() == 20) {
+					gauche = true;
+
+					for (int i = 0; i < MAX_ENNEMIS; i++) {
+						ennemi[i].removeExtraTerrestre();
+						ennemi[i].coord.setPositionY(ennemi[i].coord.getPositionY() + 1);
+					}
 				}
+				else if (ennemi[0].coord.getPositionX() == 10) {
+					gauche = false;
+					for (int i = 0; i < MAX_ENNEMIS; i++) {
+						ennemi[i].removeExtraTerrestre();
+						ennemi[i].coord.setPositionY(ennemi[i].coord.getPositionY() + 1);
+					}
+				}
+
+				for (int j = 0; j < MAX_ENNEMIS; j++) {
+					ennemi[j].jiggleMartien(gauche);
+				}
+				timerEnnemi = clock();
 			}
-			timerEnnemi = clock();
-		}
 
 		if (clock() >= timerLaser + delaiLaser) {
 			// on affiche un compteur en haut à gauche de l'écran
