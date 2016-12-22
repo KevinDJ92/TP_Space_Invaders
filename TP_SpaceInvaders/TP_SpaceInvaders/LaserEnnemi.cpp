@@ -13,3 +13,10 @@ void LaserEnnemi::movelaser()
 	else
 		isAlive = false;
 }
+void Laser::startLaser(int x)
+{
+	coord.setPositionX(x);
+	coord.setPositionY(39);
+	putLaser();
+	isAlive = true;
+}
