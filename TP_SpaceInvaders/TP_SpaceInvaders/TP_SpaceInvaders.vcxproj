@@ -150,6 +150,7 @@
     <ClCompile Include="Ennemi.cpp" />
     <ClCompile Include="ExtraTerrestre.cpp" />
     <ClCompile Include="Laser.cpp" />
+    <ClCompile Include="LaserEnnemi.cpp" />
     <ClCompile Include="Martien.cpp" />
     <ClCompile Include="nouveauVaisseau.cpp" />
     <ClCompile Include="SpaceMain.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Ennemi.h" />
     <ClInclude Include="ExtraTerrestre.h" />
     <ClInclude Include="Laser.h" />
+    <ClInclude Include="LaserEnnemi.h" />
     <ClInclude Include="Martien.h" />
     <ClInclude Include="nouveauVaisseau.h" />
     <ClInclude Include="Timer.h" />
